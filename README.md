@@ -8,5 +8,5 @@
 
 ## Requirements
 
-* Xcode 7.0, iOS 9.0 SDK, watchOS 2.0 SDK
+* Xcode 9.0+, Swift 4.0+, iOS 9.0 SDK, watchOS 2.0 SDK
 * iOS 9.0 and watchOS 2.0

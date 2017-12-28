@@ -28,7 +28,7 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>WKCompanionAppBundleIdentifier</key>
-	<string>com.chadbibler.Natural-Language-Clock</string>
+	<string>com.eliott.Natural-Language-Clock</string>
 	<key>WKWatchKitApp</key>
 	<true/>
 </dict>

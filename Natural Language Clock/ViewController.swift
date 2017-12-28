@@ -25,10 +25,10 @@ class ViewController: UIViewController {
     @IBOutlet var twelveLabel: UILabel!
     @IBOutlet var oclockLabel: UILabel!
 
-    let onColor = UIColor.whiteColor()
-    let offColor = UIColor.darkGrayColor()
+    let onColor = UIColor.white
+    let offColor = UIColor.darkGray
 
-    var updateTimer: NSTimer?
+    var updateTimer: Timer?
     var labelProvider: LabelProvider?
 
     override func viewDidLoad() {
@@ -60,15 +60,15 @@ class ViewController: UIViewController {
             oclockLabel: oclockLabel
         )
 
-        labelProvider = LabelProvider(labels: labels, onColor: UIColor.whiteColor(), offColor: UIColor.darkGrayColor())
+        labelProvider = LabelProvider(labels: labels, onColor: UIColor.white, offColor: UIColor.darkGray)
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         startUpdating()
     }
 
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
         stopUpdating()
@@ -76,26 +76,28 @@ class ViewController: UIViewController {
 
     func startUpdating() {
         showCurrentTime()
-
-        let now = NSDate()
-        let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components([.Year, .Month, .Day, .Hour, .Minute, .Second], fromDate: now)
-        components.minute = components.minute + 1
-        components.second = 0
-        let fireDate = calendar.dateFromComponents(components)
-        updateTimer = NSTimer(fireDate: fireDate!, interval: 60.0, target: self, selector: "showCurrentTime", userInfo: nil, repeats: true)
-        NSRunLoop.mainRunLoop().addTimer(updateTimer!, forMode: NSDefaultRunLoopMode)
+        
+        let now = Date()
+        let calendar = Calendar.current
+        
+        var dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: now)
+        dateComponents.minute = dateComponents.minute! + 1
+        dateComponents.second = 0
+        
+        let fireDate = calendar.date(from: dateComponents)
+        updateTimer = Timer(fireAt: fireDate!, interval: 60.0, target: self, selector: Selector(("showCurrentTime")), userInfo: nil, repeats: true)
+        RunLoop.main.add(updateTimer!, forMode: RunLoopMode.defaultRunLoopMode)
     }
-
+    
     func stopUpdating() {
         updateTimer?.invalidate()
     }
-
+    
     func showCurrentTime() {
-        let flags: NSCalendarUnit = [.Hour, .Minute]
-        let now = NSDate()
-        let components = NSCalendar.autoupdatingCurrentCalendar().components(flags, fromDate: now)
-
-        labelProvider?.showTime(hour: components.hour, minute: components.minute)
+        let flags = Set<Calendar.Component>([.hour, .minute])
+        let now = Date()
+        let components = Calendar.autoupdatingCurrent.dateComponents(flags, from: now)
+        
+        labelProvider?.showTime(hour: components.hour!, minute: components.minute!)
     }
 }

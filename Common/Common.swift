@@ -120,7 +120,7 @@ struct LabelProvider: NaturalTimeLabelProvider {
     var hourLabels = [ToggleableLabel]()
     var minuteLabels = [ToggleableLabel]()
 
-    func showTime(hour hour: Int, minute: Int) {
+    func showTime(hour: Int, minute: Int) {
         itLabel.turnOn()
         isLabel.turnOn()
 
@@ -134,7 +134,7 @@ struct LabelProvider: NaturalTimeLabelProvider {
         }
     }
 
-    func setHour(hour: Int) {
+    func setHour(_ hour: Int) {
         hourLabels.forEach { $0.turnOff() }
 
         switch hour {
@@ -167,7 +167,7 @@ struct LabelProvider: NaturalTimeLabelProvider {
         }
     }
 
-    func setMinute(minute: Int) {
+    func setMinute(_ minute: Int) {
         minuteLabels.forEach { $0.turnOff() }
 
         switch minute {
